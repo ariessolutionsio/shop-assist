@@ -27,6 +27,9 @@ const config = {
     labelAllLocales: [],
     permissions: [PERMISSIONS.View],
   },
+  additionalEnv: {
+    logoMustBeVisible: '${env:LOGO_MUST_BE_VISIBLE}',
+  },
 };
 
 export default config;

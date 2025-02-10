@@ -18,6 +18,15 @@ import SelectableSearchInput, {
 import DataTableManager from '@commercetools-uikit/data-table-manager';
 import { LABEL_KEYS } from './constants';
 import { useDataTableManager } from './hooks/useDataTableManager';
+import { Logo } from '../images/logo';
+
+declare global {
+  interface Window {
+    app: {
+      logoMustBeVisible: string;
+    };
+  }
+}
 
 const Carts = () => {
   const match = useRouteMatch();
@@ -37,6 +46,14 @@ const Carts = () => {
   const [searchInputValue, setSearchInputValue] = useState<TValue>({
     option: LABEL_KEYS.ALL_FIELDS,
     text: '',
+  });
+
+  const [logoMustBeVisible] = useState<boolean>(() => {
+    const value = window.app?.logoMustBeVisible;
+    if (value && typeof value === 'string') {
+      return value.toLowerCase() === 'true';
+    }
+    return Boolean(value);
   });
 
   // Only used for custom placeholders on dropdown change
@@ -167,6 +184,10 @@ const Carts = () => {
               </Switch>
             </Spacings.Stack>
           )}
+
+      <Spacings.Stack scale="m" alignItems="center">
+        {logoMustBeVisible && <Logo />}
+      </Spacings.Stack>
     </Spacings.Stack>
   );
 };
