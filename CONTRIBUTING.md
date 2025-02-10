@@ -97,6 +97,35 @@ npm run format
 - Documentation: Update the documentation as needed.
 - Commit Messages: Use clear and descriptive commit messages. Follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 
+#### Conventional Commits Specification
+A commit message consists of a header, an optional body, and an optional footer. The header has a specific format:
+
+```
+<type>[optional scope]: <subject>
+```
+
+The header is the most important part and follows this format:
+
+- type: Describes the purpose of the commit (e.g., feat, fix, docs, etc.).
+- [optional scope]: Specifies the part of the codebase affected (e.g., api, ui, auth).
+- description: A concise summary of the changes.
+
+#### Commit Types
+Here are the most commonly used commit types:
+
+- feat: A new feature.
+- fix: A bug fix.
+- docs: Documentation-only changes (e.g., README, comments).
+- style: Changes that do not affect the meaning of the code (e.g., formatting).
+- refactor: Code changes that neither fix a bug nor add a feature (e.g., restructuring).
+- test: Adding or modifying tests.
+- chore: Maintenance tasks (e.g., updating dependencies, CI/CD config).
+ci	Changes to CI/CD configuration files and scripts.
+build	Changes that affect the build system or external dependencies.
+perf	Performance improvements.
+- revert	Reverts a previous commit.
+
+
 ## Testing
 To ensure the project works as expected, please:
 - Write unit tests for new features or bug fixes using a testing Jest framework.
