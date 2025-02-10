@@ -4,6 +4,7 @@ on: [push]
 
 env:
   CI: true
+  LOGO_MUST_BE_VISIBLE: ${{ vars.LOGO_MUST_BE_VISIBLE }}
 
 jobs:
   build:
