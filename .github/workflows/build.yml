@@ -4,7 +4,6 @@ on: [push]
 
 env:
   CI: true
-  LOGO_MUST_BE_VISIBLE: ${{ vars.LOGO_MUST_BE_VISIBLE }}
 
 jobs:
   build:
@@ -42,3 +41,4 @@ jobs:
           APPLICATION_ID: ${{ vars.APPLICATION_ID }}
           APPLICATION_URL: ${{ vars.APPLICATION_URL }}
           INITIAL_PROJECT_KEY: ${{ vars.INITIAL_PROJECT_KEY }}
+          LOGO_MUST_BE_VISIBLE: ${{ vars.LOGO_MUST_BE_VISIBLE }}
