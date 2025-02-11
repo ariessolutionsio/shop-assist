@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 
 const CartDetails = lazy(
-  () => import('./CartDetails' /* webpackChunkName: "cart-details" */)
+  () => import('./cart-details' /* webpackChunkName: "cart-details" */)
 );
 
 export default CartDetails;

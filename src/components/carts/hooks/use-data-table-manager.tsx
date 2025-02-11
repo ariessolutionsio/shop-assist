@@ -11,7 +11,7 @@ import {
   transformLocalizedFieldToLocalizedString,
 } from '@commercetools-frontend/l10n';
 import { formatMoneyCurrency } from '../../../helpers';
-import Badge from '../../badge/Badge';
+import Badge from '../../badge';
 import {
   useDataTableSortingState,
   usePaginationState,

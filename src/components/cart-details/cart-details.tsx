@@ -16,14 +16,14 @@ import Grid from '@commercetools-uikit/grid';
 
 // Local imports
 import messages from './messages';
-import DropdownInputField from './components/DropdownInputField';
-import { useCartDetails } from './hooks/useCartDetails';
-import CartLineItem from './components/CartLineItem';
-import PriceSummary from './components/PriceSummary';
-import ShippingSummary from './components/ShippingSummary';
+import DropdownInputField from './components/dropdown-input-field';
+import { useCartDetails } from './hooks/use-cart-details';
+import CartLineItem from './components/cart-line-item';
+import PriceSummary from './components/price-summary';
+import ShippingSummary from './components/shipping-summary';
 import { TLineItem } from '../../types/generated/ctp';
-import DiscountsSummary from './components/DiscountsSummary';
-import Badge from '../badge/Badge';
+import DiscountsSummary from './components/discounts-summary';
+import Badge from '../badge';
 
 const CartDetails = () => {
   const intl = useIntl();

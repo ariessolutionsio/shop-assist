@@ -8,9 +8,9 @@ import {
   ErrorIcon,
 } from '@commercetools-uikit/icons';
 import { designTokens } from '@commercetools-uikit/design-system';
-import { useCartDetails } from '../hooks/useCartDetails';
+import { useCartDetails } from '../hooks/use-cart-details';
 import IconButton from '@commercetools-uikit/icon-button';
-import DiscountCodeInput from './DiscountCodeInput';
+import DiscountCodeInput from './discount-code-input';
 import Tooltip from '@commercetools-uikit/tooltip';
 import { TDiscountCodeState } from '../../../types/generated/ctp';
 

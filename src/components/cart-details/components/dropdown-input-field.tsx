@@ -7,7 +7,7 @@ import SearchTextInput from '@commercetools-uikit/search-text-input';
 // local imports
 import { useIntl } from 'react-intl';
 import messages from '../messages';
-import { useCartDetails } from '../hooks/useCartDetails';
+import { useCartDetails } from '../hooks/use-cart-details';
 import { getErrorMessage } from '../../../helpers';
 import { useShowNotification } from '@commercetools-frontend/actions-global';
 import {

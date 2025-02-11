@@ -7,7 +7,7 @@ import messages from '../messages';
 import Card from '@commercetools-uikit/card';
 import Spacings from '@commercetools-uikit/spacings';
 import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
-import { useCartDetails } from '../hooks/useCartDetails';
+import { useCartDetails } from '../hooks/use-cart-details';
 
 const ZERO_MONEY_AMOUNT_FALLBACK: TMoney = {
   type: 'centPrecision',

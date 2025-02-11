@@ -17,7 +17,7 @@ import SelectableSearchInput, {
 } from '@commercetools-uikit/selectable-search-input';
 import DataTableManager from '@commercetools-uikit/data-table-manager';
 import { LABEL_KEYS } from './constants';
-import { useDataTableManager } from './hooks/useDataTableManager';
+import { useDataTableManager } from './hooks/use-data-table-manager';
 
 const Carts = () => {
   const match = useRouteMatch();
