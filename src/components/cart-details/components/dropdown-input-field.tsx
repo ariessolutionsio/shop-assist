@@ -28,7 +28,7 @@ const DropdownInputField = () => {
   } = useCartDetails();
 
   const showNotification = useShowNotification();
-
+  const SHOW_OFF_TIMEOUT = 4000;
   const [searchValue, setSearchValue] = useState<string>('');
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const DropdownInputField = () => {
           domain: DOMAINS.SIDE,
           text: `Sucessfully added product to the cart.`,
         },
-        { dismissAfter: 4000 }
+        { dismissAfter: SHOW_OFF_TIMEOUT }
       );
 
     if (errorUpdateCart)
@@ -49,7 +49,7 @@ const DropdownInputField = () => {
           domain: DOMAINS.SIDE,
           text: getErrorMessage(errorUpdateCart),
         },
-        { dismissAfter: 4000 }
+        { dismissAfter: SHOW_OFF_TIMEOUT }
       );
   }, [errorUpdateCart, dataUpdateCart, showNotification]);
 

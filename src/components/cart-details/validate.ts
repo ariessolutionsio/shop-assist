@@ -8,6 +8,15 @@ type TErrors = {
   roles: { missing?: boolean };
 };
 
+/**
+ * Validates form values for cart details
+ * @param {TFormValues} formikValues - The form values to validate
+ * @returns {FormikErrors<TFormValues>} An object containing validation errors
+ *
+ * The function checks for:
+ * - Empty key value
+ * - Empty roles array
+ */
 const validate = (formikValues: TFormValues): FormikErrors<TFormValues> => {
   const errors: TErrors = {
     key: {},
@@ -17,9 +26,14 @@ const validate = (formikValues: TFormValues): FormikErrors<TFormValues> => {
   if (TextInput.isEmpty(formikValues.key)) {
     errors.key.missing = true;
   }
-  if (Array.isArray(formikValues.roles) && formikValues.roles.length === 0) {
+
+  if (
+    !formikValues.roles ||
+    (Array.isArray(formikValues.roles) && formikValues.roles.length === 0)
+  ) {
     errors.roles.missing = true;
   }
+
   return omitEmpty(errors);
 };
 

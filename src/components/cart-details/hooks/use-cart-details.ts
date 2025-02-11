@@ -11,6 +11,47 @@ import {
 } from '../../../hooks/use-carts-connector';
 import { INCREASE } from '../constants';
 
+/**
+ * A custom hook for managing shopping cart operations and state.
+ *
+ * @returns {Object} An object containing the following:
+ *
+ * @property {Function} setProducts - Function to set product results
+ * @property {Array} products - Array of product results
+ * @property {Function} handleUpdateCart - Updates cart with given actions
+ * @property {Function} handleChangeLineItemQuantity - Updates quantity of a specific line item
+ * @property {Function} handleAddLineItem - Adds a new line item to cart using SKU
+ * @property {Function} handleAddProduct - Smart add product function (increases quantity if exists, adds new if doesn't)
+ * @property {Function} updateItemQuantity - Updates item quantity by increment/decrement
+ * @property {Function} resetUpdateCartMutationResult - Resets the cart mutation result
+ * @property {Function} handleAddDiscount - Adds a discount code to the cart
+ * @property {Function} handleRemoveDiscount - Removes a discount code from the cart
+ * @property {boolean} loadingUpdateCart - Loading state for cart updates
+ * @property {Error|null} errorUpdateCart - Error state for cart updates
+ * @property {Object|null} dataUpdateCart - Data returned from cart update
+ * @property {boolean} loadingCartDetails - Loading state for cart details
+ * @property {Object|null} cartDetails - Current cart details
+ * @property {Error|null} errorCartDetails - Error state for cart details
+ * @property {Array} items - Array of line items in the cart
+ *
+ * @example
+ * const {
+ *   handleAddProduct,
+ *   handleAddDiscount,
+ *   updateItemQuantity,
+ *   cartDetails,
+ *   items
+ * } = useCartDetails();
+ *
+ * // Add a product to cart
+ * await handleAddProduct('SKU123');
+ *
+ * // Add a discount code
+ * await handleAddDiscount('SUMMER20');
+ *
+ * // Update item quantity
+ * await updateItemQuantity(lineItem, 'increase');
+ */
 export const useCartDetails = () => {
   const [products, setProducts] =
     useState<TFetchProductBySkuQuery['products']['results']>();

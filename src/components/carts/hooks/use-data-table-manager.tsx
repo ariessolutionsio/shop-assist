@@ -17,6 +17,38 @@ import {
   usePaginationState,
 } from '@commercetools-uikit/hooks';
 
+/**
+ * A custom hook that manages the data table state and configuration for the carts view.
+ *
+ * @returns {Object} An object containing:
+ *   - customColumnManager: Configuration for managing visible and hidden columns
+ *   - tableSettingsChangeHandler: Handlers for table setting updates
+ *   - visibleColumns: Array of currently visible columns
+ *   - tableSorting: Current sorting state
+ *   - page: Current page number
+ *   - perPage: Number of items per page
+ *   - renderItems: Function to render cell content based on column type
+ *   - handleSettingsChange: Function to handle table setting changes
+ *
+ * Features:
+ * - Column visibility management
+ * - Column searching
+ * - Sorting state management
+ * - Pagination state management
+ * - Dynamic cell rendering based on column type
+ * - Localization support for store names
+ * - Currency formatting for prices
+ *
+ * Example usage:
+ * ```tsx
+ * const {
+ *   visibleColumns,
+ *   renderItems,
+ *   customColumnManager,
+ *   handleSettingsChange,
+ * } = useDataTableManager();
+ * ```
+ */
 export const useDataTableManager = () => {
   const { dataLocale, projectLanguages } = useApplicationContext((context) => ({
     dataLocale: context.dataLocale,
