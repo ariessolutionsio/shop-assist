@@ -32,7 +32,3 @@ Read the [Getting started](https://docs.commercetools.com/merchant-center-custom
 # How to contribute
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
-
-# License
-
-This project is licensed under the [GNU License](LICENSE).
