@@ -1,34 +1,46 @@
+<!-- markdownlint-disable MD041 -->
+<!-- markdownlint-disable MD033 -->
 <p align="center">
   <a href="https://www.ariessolutions.io/composable-commerce/aries-labs-open-source/">
     <img alt="Aries Labs" width="300" src="docs/assets/Labs-For-Dk_BG.svg">
   </a>
 </p>
 
-This is the [TypeScript](https://www.typescriptlang.org/) version of the starter template to [develop Custom Applications](https://docs.commercetools.com/merchant-center-customizations/custom-applications) for the Merchant Center.
+# commercetools Shop Assist
 
-# Problem / Opportunity
-In an eCommerce environment, customers often require support while they have active or open shopping carts. Since the eCommerce platform operates on the client side, the support team lacks the necessary tools to assist these customers effectively. This limitation creates a gap in the customer support process, as support agents cannot directly view or modify the contents of a customer's shopping cart to provide real-time assistance.
+## Overview
 
-To address this issue, a custom application called Shop Assist has been developed within Commerce Tools. This application empowers support agents by providing them with access to all active shopping carts. Agents can search for specific carts using either the customer's email address or a cart ID. Once a cart is located, the support agent can perform the following actions to assist the customer:
+For digital commerce, customers often need support with their active shopping cart. This custom application allows customer service agents to find, inspect, and modify customer carts directly from the commercetools' merchant center.
 
-- Add new items to the cart.
-- Remove items from the cart.
-- Increase/decrease the quantity of existing items in the cart.
+### Key Features
 
-This functionality enables the support team to provide proactive and efficient assistance to customers, enhancing the overall shopping experience and reducing potential friction during the checkout process.
+- **User Interface:** Professional user interface that seamlessly matches the Merchant Center design.
+- **Cart Search:** Find carts by email address, ID, or other key data points.
+- **Cart Management:** Manage line items, promotions, or more to assist customers with checkout.
+- **Extensible:** Designed to be extended to meet your company's requirements.
 
-# Opportunity
-The implementation of Shop Assist represents a significant opportunity to improve customer satisfaction and streamline support operations. By equipping support agents with the ability to directly interact with customers' shopping carts, the eCommerce platform can reduce cart abandonment rates, resolve customer issues more effectively, and ultimately drive higher conversion rates. This tool bridges the gap between customer needs and support capabilities, creating a more seamless and supportive shopping experience.
+## Getting Started
 
-# How to run the project
+View the [documentation](https://ariessolutionsio.github.io/shop-assist/) or reach out to [Aries Solutions](https://www.ariessolutions.io/) for [support](https://www.ariessolutions.io/contact-aries/).
 
-1. Clone the repository
-2. Create .env file and add the values from .env.template
-Read the [Getting started](https://docs.commercetools.com/merchant-center-customizations/custom-applications) documentation for more information.
-3. IMPORTANT: **For this version you need to login to the Merchant Center and get the MC_ACCESS_TOKEN from the browser cookies. After, setting  MC_ACCESS_TOKEN in the .env file.**
-3. Run `yarn` to install the dependencies
-4. Run `yarn start` to start the development server
+## Contributing
 
-# How to contribute
+Contributions are welcome! Please feel free to submit pull requests or open issues to discuss proposed changes or report bugs.
 
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
+For major changes, please open an issue first to discuss what you would like to change. Ensure to update tests as appropriate.
+
+## License
+
+This source code is provided under the [GNU AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.en.html).
+
+All work product released in this repository is provided ​“AS IS”. We makes no other warranties, express or implied, and hereby disclaims all implied warranties, including any warranty of merchantability and warranty of fitness for a particular purpose. The demo provided is for testing purposes only, does not include any form of SLA, and should not be used in a production environment.
+
+If you would like to discuss alternative licensing or leveraging this application in your composable stack, please [reach out to Aries Solutions](https://www.ariessolutions.io/contact-aries/) to discuss options.
+
+----
+
+
+# [Aries Labs](https://www.ariessolutions.io/)
+
+This project is part of the Aries Labs initiative. To learn more about Aries Solutions and other projects including the MACH Booster please visit our website
+
