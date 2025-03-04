@@ -4,3 +4,7 @@ dist
 .env.local
 .env
 .DS_Store
+
+docs/.sass-cache
+docs/.jekyll-cache
+docs/_site

@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Home
+title: Features
 nav_order: 1
 permalink: /
+meta_title: "Shop Assist - Help your customers directly from the commercetools Merchant Center"
 ---
 
 <!--prettier-ignore-start-->
@@ -11,71 +12,75 @@ permalink: /
 Assist your customers directly from the Merchant Center.
 {: .fs-6 .fw-300 }
 
-
 _NOTE: If you need help implementing or customizing this application, please [reach out](https://www.ariessolutions.io/contact-aries/) with any questions._
 
-[Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/ariessolutionsio/shop-assist){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Get started now](/installing.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/ariessolutionsio/shop-assist){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
+## Features
 
-## Getting started
+Shop Assist is a commercetools custom application that integrates directly into the Merchant Center. It enables companies to support their customers by managing carts efficiently. Built with flexibility in mind, it can be extended and customized to fit specific business requirements.
 
-### Configure Custom Application with Merchant Center
+### Cart Management Overview
 
+The main dashboard provides a **list of carts** associated with the project. The list is displayed in a **table format** with pagination controls. Users can:
 
+- Adjust the **number of items per page**.
+- Customize **visible columns** to display only the most relevant data.
+- Use the **search bar** to quickly find carts.
 
-In order to use this custom application, you'll need to register it inside of the Merchant Center.
-You can **demo** the application with our hosted version. For use in production please deploy the
-application to your own cloud environment or contact us for help.
+#### Searching for Carts
 
- - [TBD](LINK)
+By default, users can search by:
 
-To register your Custom Application with a Merchant Center project:
+- **Cart ID**
+- **Customer Email Address**
 
-1. In the main navigation of the Merchant Center, navigate to **User Icon > Manage Organization and Teams**. Click on the organizaiton where you want to install the application.
+The searchable fields can be adjusted to fit business needs.
 
-2. From your organization page, navigate to the tab **Custom Applications** and clck the **Configure Custom Applications** button. Then click the **Add a Custom Application** button.
-    
-3.  Fill in the fields as follows:
+<div style="max-width: 100% !important;">
+    <video controls style="max-width: 100%;">
+        <source src="assets/search-carts.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+</div>
 
-- **Application Name**: Shop Assist
-- **Application Url**: Your hosting location
-- **Application entry point URI path**: `shop-assist`
-- **Permissions**: Manage Products, Manage Orders, Manage Customers
-        
-4.  Click **Register Custom Application**.
+#### Viewing and Editing Carts
 
-5.  Install the application in your desired projects. From the organization's Custom Applications screen click on the **Install Custom Applications** button. Choose the application. Install in all or selected projects for that organization.
+Clicking on a cart opens the **Cart Details** page. This view provides:
 
----
+- **Line Item Details** – Full breakdown of products in the cart.
+- **Cart Summary** – Displays totals, tax calculations, and applied discounts.
+- **Cart Status** – Indicates whether the cart is open, ordered, or abandoned.
 
-## License
+#### Cart Modifications
 
-Aries code and modifications licensed under the [GNU AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.en.html).
-Libraries, dependencies, and code pulled into this project will retain their existing license.
+Users can modify carts in several ways:
 
-If you would like to discuss alternative licensing or leveraging this application in your composable stack, please [reach out to Aries Solutions](https://www.ariessolutions.io/contact-aries/) to discuss options.
+- **Add Items** – Search for and add products directly to the cart.
+- **Remove Items** – Delete individual line items from the cart.
+- **Adjust Quantities** – Modify the quantity of existing items.
+- **Apply Discounts** – Manually apply discounts at the cart level.
 
-#### Disclaimer
+<div style="max-width: 100% !important;">
+    <video controls style="max-width: 100%;">
+        <source src="assets/edit-cart.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+</div>
 
-Please note: all tools / scripts in this repository are released for use "AS IS"
-without any warranties of any kind, including, but not limited to their
-installation, use, or performance. We disclaim any and all warranties, either
-express or implied, including but not limited to any warranty of
-noninfringement, merchantability, and/ or fitness for a particular purpose. We
-do not warrant that the technology will meet your requirements, that the
-operation thereof will be uninterrupted or error-free, or that any errors will
-be corrected.
+### Customization & Extensibility
 
-Any use of these scripts and tools is at your own risk. There is no guarantee
-that they have been through thorough testing in a comparable environment and we
-are not responsible for any damage or data loss incurred with their use.
+Shop Assist is designed to be tailored to each company's needs. Businesses can:
 
-You are responsible for reviewing and testing any scripts you run _thoroughly_
-before use in any non-testing environment.
+- Configure which **columns** are shown in the cart list.
+- Adjust **searchable fields**.
+- Extend functionality with **custom actions and integrations**.
 
-## Support
-
-Need help with your project? Contact the Aries Solutions team for
-assistance.
+<div style="max-width: 100% !important;">
+    <video controls style="max-width: 100%;">
+        <source src="assets/customize.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+</div>
