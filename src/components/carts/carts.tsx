@@ -82,6 +82,22 @@ const Carts = () => {
       value: LABEL_KEYS.CUSTOMER_EMAIL,
       label: intl.formatMessage(messages.emailAddressLabel),
     },
+    {
+      value: LABEL_KEYS.SHIPPING_ADDRESS_NAME,
+      label: intl.formatMessage(messages.shippingAddressName)
+    },
+    {
+      value: LABEL_KEYS.SHIPPING_ADDRESS_PHONE,
+      label: intl.formatMessage(messages.shippingAddressPhone)
+    },
+    {
+      value: LABEL_KEYS.BILLING_ADDRESS_NAME,
+      label: intl.formatMessage(messages.billingAddressName)
+    },
+    {
+      value: LABEL_KEYS.BILLING_ADDRESS_PHONE,
+      label: intl.formatMessage(messages.billingAddressPhone)
+    }
   ];
 
   const showNoResultsMessage =

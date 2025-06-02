@@ -88,4 +88,8 @@ export enum LABEL_KEYS {
   CART_ID = 'cartId',
   CUSTOMER_EMAIL = 'customerEmail',
   ALL_FIELDS = 'allFields',
+  SHIPPING_ADDRESS_NAME = 'shippingAddressName',
+  SHIPPING_ADDRESS_PHONE = 'shippingAddressPhone',
+  BILLING_ADDRESS_NAME = 'billingAddressName',
+  BILLING_ADDRESS_PHONE =  'billingAddressPhone'
 }

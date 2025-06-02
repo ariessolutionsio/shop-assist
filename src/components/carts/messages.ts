@@ -21,6 +21,22 @@ export default defineMessages({
     id: 'Carts.emailAddressLabel',
     defaultMessage: 'Email Address',
   },
+  shippingAddressName: {
+    id: 'Carts.shippingAddressName',
+    defaultMessage: 'Shipping Address Name'
+  },
+  shippingAddressPhone: {
+    id: 'Carts.shippingAddressPhone',
+    defaultMessage: 'Shipping Address Phone'
+  },
+  billingAddressName: {
+    id: 'Carts.billingAddressName',
+    defaultMessage: 'Billing Address Name'
+  },
+  billingAddressPhone: {
+    id: 'Carts.billingAddressPhone',
+    defaultMessage: 'Billing Address Phone'
+  },
   searchTermNotFound: {
     id: 'Carts.searchTermNotFound',
     defaultMessage: 'No matches found for your search term.',

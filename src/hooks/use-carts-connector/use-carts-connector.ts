@@ -48,27 +48,42 @@ export const useCartsFetcher: TUseCartsFetcher = ({
 }) => {
   // TODO: Sanitize email if desired via RegEx or util. By now we only need to asses that if a
   // '@' is present, the id "where" filter should not be used, to avoid errors on ALL_FIELDS search.
-  const isEmail: boolean = where?.includes('@') ?? false;
+  const sanitizedWhere = where?.trim() ?? '';
+  const isEmail = sanitizedWhere.includes('@');
+
   const searchQuery =
     labelKey === LABEL_KEYS.ALL_FIELDS && !isEmail
-      ? `id="${where}" or customerEmail="${where}"`
+      ? `id="${sanitizedWhere}" or customerEmail="${sanitizedWhere}" or shippingAddress(firstName="${sanitizedWhere}") or shippingAddress(lastName="${sanitizedWhere}") or shippingAddress(phone="${sanitizedWhere}") or billingAddress(firstName="${sanitizedWhere}") or billingAddress(lastName="${sanitizedWhere}") or billingAddress(phone="${sanitizedWhere}")`
       : labelKey === LABEL_KEYS.CART_ID
-      ? `id="${where}"`
-      : `customerEmail="${where}"`;
+      ? `id="${sanitizedWhere}"`
+      : labelKey === LABEL_KEYS.CUSTOMER_EMAIL
+      ? `customerEmail="${sanitizedWhere}"`
+      : labelKey === LABEL_KEYS.SHIPPING_ADDRESS_NAME
+      ? `shippingAddress(firstName="${sanitizedWhere}") or shippingAddress(lastName="${sanitizedWhere}")`
+      : labelKey === LABEL_KEYS.SHIPPING_ADDRESS_PHONE
+      ? `shippingAddress(phone="${sanitizedWhere}")`
+      : labelKey === LABEL_KEYS.BILLING_ADDRESS_NAME
+      ? `billingAddress(firstName="${sanitizedWhere}") or billingAddress(lastName="${sanitizedWhere}")`
+      : labelKey === LABEL_KEYS.BILLING_ADDRESS_PHONE
+      ? `billingAddress(phone="${sanitizedWhere}")`
+      : null;
+
+  const whereFilter = sanitizedWhere.length > 0 ? searchQuery : null;
+
   const { data, error, loading } = useMcQuery<
-    TFetchCartsQuery,
-    TFetchCartsQueryVariables
+  TFetchCartsQuery, 
+  TFetchCartsQueryVariables
   >(FetchCartsQuery, {
-    variables: {
-      limit: perPage.value,
-      offset: (page.value - 1) * perPage.value,
-      sort: [`${tableSorting.value.key} ${tableSorting.value.order}`],
-      where: where ? searchQuery : null,
-    },
-    context: {
-      target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
-    },
-  });
+      variables: {
+        limit: perPage.value,
+        offset: (page.value - 1) * perPage.value,
+        sort: [`${tableSorting.value.key} ${tableSorting.value.order}`],
+        where: whereFilter,
+      },
+      context: {
+        target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
+      },
+    });
   return {
     cartsPaginatedResult: data?.carts?.results as TCart[],
     total: data?.carts?.total,
