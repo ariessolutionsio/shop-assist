@@ -39,6 +39,43 @@ type TUseCartsFetcher = (
   loading: boolean;
 };
 
+function buildSearchQuery(labelKey: string, sanitizedTerm: string): string | null {
+  const isEmail = sanitizedTerm.includes('@');
+
+  if (labelKey === LABEL_KEYS.ALL_FIELDS) {
+    if (isEmail) {
+      return `customerEmail="${sanitizedTerm}"`;
+    }
+    return [
+      `id="${sanitizedTerm}"`,
+      `customerEmail="${sanitizedTerm}"`,
+      `shippingAddress(firstName="${sanitizedTerm}")`,
+      `shippingAddress(lastName="${sanitizedTerm}")`,
+      `shippingAddress(phone="${sanitizedTerm}")`,
+      `billingAddress(firstName="${sanitizedTerm}")`,
+      `billingAddress(lastName="${sanitizedTerm}")`,
+      `billingAddress(phone="${sanitizedTerm}")`,
+    ].join(' or ');
+  }
+
+  switch (labelKey) {
+    case LABEL_KEYS.CART_ID:
+      return `id="${sanitizedTerm}"`;
+    case LABEL_KEYS.CUSTOMER_EMAIL:
+      return `customerEmail="${sanitizedTerm}"`;
+    case LABEL_KEYS.SHIPPING_ADDRESS_NAME:
+      return `shippingAddress(firstName="${sanitizedTerm}") or shippingAddress(lastName="${sanitizedTerm}")`;
+    case LABEL_KEYS.SHIPPING_ADDRESS_PHONE:
+      return `shippingAddress(phone="${sanitizedTerm}")`;
+    case LABEL_KEYS.BILLING_ADDRESS_NAME:
+      return `billingAddress(firstName="${sanitizedTerm}") or billingAddress(lastName="${sanitizedTerm}")`;
+    case LABEL_KEYS.BILLING_ADDRESS_PHONE:
+      return `billingAddress(phone="${sanitizedTerm}")`;
+    default:
+      return null;
+  }
+}
+
 export const useCartsFetcher: TUseCartsFetcher = ({
   page,
   perPage,
@@ -46,29 +83,10 @@ export const useCartsFetcher: TUseCartsFetcher = ({
   where,
   labelKey,
 }) => {
-  // TODO: Sanitize email if desired via RegEx or util. By now we only need to asses that if a
+   // TODO: Sanitize email if desired via RegEx or util. By now we only need to asses that if a
   // '@' is present, the id "where" filter should not be used, to avoid errors on ALL_FIELDS search.
-  const sanitizedWhere = where?.trim() ?? '';
-  const isEmail = sanitizedWhere.includes('@');
-
-  const searchQuery =
-    labelKey === LABEL_KEYS.ALL_FIELDS && !isEmail
-      ? `id="${sanitizedWhere}" or customerEmail="${sanitizedWhere}" or shippingAddress(firstName="${sanitizedWhere}") or shippingAddress(lastName="${sanitizedWhere}") or shippingAddress(phone="${sanitizedWhere}") or billingAddress(firstName="${sanitizedWhere}") or billingAddress(lastName="${sanitizedWhere}") or billingAddress(phone="${sanitizedWhere}")`
-      : labelKey === LABEL_KEYS.CART_ID
-      ? `id="${sanitizedWhere}"`
-      : labelKey === LABEL_KEYS.CUSTOMER_EMAIL
-      ? `customerEmail="${sanitizedWhere}"`
-      : labelKey === LABEL_KEYS.SHIPPING_ADDRESS_NAME
-      ? `shippingAddress(firstName="${sanitizedWhere}") or shippingAddress(lastName="${sanitizedWhere}")`
-      : labelKey === LABEL_KEYS.SHIPPING_ADDRESS_PHONE
-      ? `shippingAddress(phone="${sanitizedWhere}")`
-      : labelKey === LABEL_KEYS.BILLING_ADDRESS_NAME
-      ? `billingAddress(firstName="${sanitizedWhere}") or billingAddress(lastName="${sanitizedWhere}")`
-      : labelKey === LABEL_KEYS.BILLING_ADDRESS_PHONE
-      ? `billingAddress(phone="${sanitizedWhere}")`
-      : null;
-
-  const whereFilter = sanitizedWhere.length > 0 ? searchQuery : null;
+  const sanitizedWhere = (where ?? '').trim();
+  const whereFilter = sanitizedWhere.length > 0 && labelKey ? buildSearchQuery(labelKey, sanitizedWhere) : null;
 
   const { data, error, loading } = useMcQuery<
     TFetchCartsQuery,
@@ -84,6 +102,7 @@ export const useCartsFetcher: TUseCartsFetcher = ({
       target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
     },
   });
+  
   return {
     cartsPaginatedResult: data?.carts?.results as TCart[],
     total: data?.carts?.total,
