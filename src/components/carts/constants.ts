@@ -91,5 +91,5 @@ export enum LABEL_KEYS {
   SHIPPING_ADDRESS_NAME = 'shippingAddressName',
   SHIPPING_ADDRESS_PHONE = 'shippingAddressPhone',
   BILLING_ADDRESS_NAME = 'billingAddressName',
-  BILLING_ADDRESS_PHONE =  'billingAddressPhone'
+  BILLING_ADDRESS_PHONE = 'billingAddressPhone'
 }

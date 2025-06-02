@@ -23,19 +23,19 @@ export default defineMessages({
   },
   shippingAddressName: {
     id: 'Carts.shippingAddressName',
-    defaultMessage: 'Shipping Address Name'
+    defaultMessage: 'Shipping Address Name',
   },
   shippingAddressPhone: {
     id: 'Carts.shippingAddressPhone',
-    defaultMessage: 'Shipping Address Phone'
+    defaultMessage: 'Shipping Address Phone',
   },
   billingAddressName: {
     id: 'Carts.billingAddressName',
-    defaultMessage: 'Billing Address Name'
+    defaultMessage: 'Billing Address Name',
   },
   billingAddressPhone: {
     id: 'Carts.billingAddressPhone',
-    defaultMessage: 'Billing Address Phone'
+    defaultMessage: 'Billing Address Phone',
   },
   searchTermNotFound: {
     id: 'Carts.searchTermNotFound',
