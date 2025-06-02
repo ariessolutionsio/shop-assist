@@ -84,20 +84,20 @@ const Carts = () => {
     },
     {
       value: LABEL_KEYS.SHIPPING_ADDRESS_NAME,
-      label: intl.formatMessage(messages.shippingAddressName)
+      label: intl.formatMessage(messages.shippingAddressName),
     },
     {
       value: LABEL_KEYS.SHIPPING_ADDRESS_PHONE,
-      label: intl.formatMessage(messages.shippingAddressPhone)
+      label: intl.formatMessage(messages.shippingAddressPhone),
     },
     {
       value: LABEL_KEYS.BILLING_ADDRESS_NAME,
-      label: intl.formatMessage(messages.billingAddressName)
+      label: intl.formatMessage(messages.billingAddressName),
     },
     {
       value: LABEL_KEYS.BILLING_ADDRESS_PHONE,
-      label: intl.formatMessage(messages.billingAddressPhone)
-    }
+      label: intl.formatMessage(messages.billingAddressPhone),
+    },
   ];
 
   const showNoResultsMessage =

@@ -71,19 +71,19 @@ export const useCartsFetcher: TUseCartsFetcher = ({
   const whereFilter = sanitizedWhere.length > 0 ? searchQuery : null;
 
   const { data, error, loading } = useMcQuery<
-  TFetchCartsQuery, 
-  TFetchCartsQueryVariables
+    TFetchCartsQuery,
+    TFetchCartsQueryVariables
   >(FetchCartsQuery, {
-      variables: {
-        limit: perPage.value,
-        offset: (page.value - 1) * perPage.value,
-        sort: [`${tableSorting.value.key} ${tableSorting.value.order}`],
-        where: whereFilter,
-      },
-      context: {
-        target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
-      },
-    });
+    variables: {
+      limit: perPage.value,
+      offset: (page.value - 1) * perPage.value,
+      sort: [`${tableSorting.value.key} ${tableSorting.value.order}`],
+      where: whereFilter,
+    },
+    context: {
+      target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
+    },
+  });
   return {
     cartsPaginatedResult: data?.carts?.results as TCart[],
     total: data?.carts?.total,
