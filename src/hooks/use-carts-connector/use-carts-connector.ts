@@ -39,16 +39,19 @@ type TUseCartsFetcher = (
   loading: boolean;
 };
 
-function buildSearchQuery(labelKey: string, sanitizedTerm: string): string | null {
+function buildSearchQuery(
+  labelKey: string,
+  sanitizedTerm: string
+): string | null {
   const isEmail = sanitizedTerm.includes('@');
 
+  const isID = sanitizedTerm.replaceAll('-', '').length === 32;
+
   if (labelKey === LABEL_KEYS.ALL_FIELDS) {
-    if (isEmail) {
-      return `customerEmail="${sanitizedTerm}"`;
-    }
+    // We handle email and ID case in specific returns since they have formats that must be met in order to avoid errors. In particular for the ID, and despite that there is no clear reference on the docs, it seems that it's always a 32 chars string containing letters and numbers.
+    if (isEmail) return `customerEmail="${sanitizedTerm}"`;
+    if (isID) return `id="${sanitizedTerm}"`;
     return [
-      `id="${sanitizedTerm}"`,
-      `customerEmail="${sanitizedTerm}"`,
       `shippingAddress(firstName="${sanitizedTerm}")`,
       `shippingAddress(lastName="${sanitizedTerm}")`,
       `shippingAddress(phone="${sanitizedTerm}")`,
@@ -83,11 +86,15 @@ export const useCartsFetcher: TUseCartsFetcher = ({
   where,
   labelKey,
 }) => {
-   // TODO: Sanitize email if desired via RegEx or util. By now we only need to asses that if a
+  // TODO: Sanitize email if desired via RegEx or util. By now we only need to asses that if a
   // '@' is present, the id "where" filter should not be used, to avoid errors on ALL_FIELDS search.
   const sanitizedWhere = (where ?? '').trim();
-  const whereFilter = sanitizedWhere.length > 0 && labelKey ? buildSearchQuery(labelKey, sanitizedWhere) : null;
 
+  const whereFilter =
+    sanitizedWhere.length > 0 && labelKey
+      ? buildSearchQuery(labelKey, sanitizedWhere)
+      : null;
+  console.log('🟡', where, sanitizedWhere, labelKey);
   const { data, error, loading } = useMcQuery<
     TFetchCartsQuery,
     TFetchCartsQueryVariables
@@ -102,7 +109,7 @@ export const useCartsFetcher: TUseCartsFetcher = ({
       target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
     },
   });
-  
+
   return {
     cartsPaginatedResult: data?.carts?.results as TCart[],
     total: data?.carts?.total,
