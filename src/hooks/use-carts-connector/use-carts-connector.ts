@@ -22,6 +22,8 @@ import FetchCartDetailsQuery from './fetch-cart-details.ctp.graphql';
 import UpdateCartMutation from './update-cart.ctp.graphql';
 import { LABEL_KEYS } from '../../components/carts/constants';
 
+const ID_LENGTH = 32;
+
 type PaginationAndSortingProps = {
   page: { value: number };
   perPage: { value: number };
@@ -45,7 +47,7 @@ function buildSearchQuery(
 ): string | null {
   const isEmail = sanitizedTerm.includes('@');
 
-  const isID = sanitizedTerm.replaceAll('-', '').length === 32;
+  const isID = sanitizedTerm.replaceAll('-', '').length === ID_LENGTH;
 
   if (labelKey === LABEL_KEYS.ALL_FIELDS) {
     // We handle email and ID case in specific returns since they have formats that must be met in order to avoid errors. In particular for the ID, and despite that there is no clear reference on the docs, it seems that it's always a 32 chars string containing letters and numbers.
@@ -94,7 +96,6 @@ export const useCartsFetcher: TUseCartsFetcher = ({
     sanitizedWhere.length > 0 && labelKey
       ? buildSearchQuery(labelKey, sanitizedWhere)
       : null;
-  console.log('🟡', where, sanitizedWhere, labelKey);
   const { data, error, loading } = useMcQuery<
     TFetchCartsQuery,
     TFetchCartsQueryVariables
