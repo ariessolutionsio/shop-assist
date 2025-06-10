@@ -30,6 +30,16 @@ query FetchCarts($limit: Int!, $offset: Int!, $sort: [String!], $where: String) 
       }
       cartState
       origin
+      shippingAddress {
+        firstName
+        lastName
+        phone
+      }
+      billingAddress {
+        firstName
+        lastName
+        phone
+      }
     }
   }
 }

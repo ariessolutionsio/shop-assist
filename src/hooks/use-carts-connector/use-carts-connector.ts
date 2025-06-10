@@ -22,6 +22,8 @@ import FetchCartDetailsQuery from './fetch-cart-details.ctp.graphql';
 import UpdateCartMutation from './update-cart.ctp.graphql';
 import { LABEL_KEYS } from '../../components/carts/constants';
 
+const ID_LENGTH = 32;
+
 type PaginationAndSortingProps = {
   page: { value: number };
   perPage: { value: number };
@@ -39,6 +41,46 @@ type TUseCartsFetcher = (
   loading: boolean;
 };
 
+function buildSearchQuery(
+  labelKey: string,
+  sanitizedTerm: string
+): string | null {
+  const isEmail = sanitizedTerm.includes('@');
+
+  const isID = sanitizedTerm.replaceAll('-', '').length === ID_LENGTH;
+
+  if (labelKey === LABEL_KEYS.ALL_FIELDS) {
+    // We handle email and ID case in specific returns since they have formats that must be met in order to avoid errors. In particular for the ID, and despite that there is no clear reference on the docs, it seems that it's always a 32 chars string containing letters and numbers.
+    if (isEmail) return `customerEmail="${sanitizedTerm}"`;
+    if (isID) return `id="${sanitizedTerm}"`;
+    return [
+      `shippingAddress(firstName="${sanitizedTerm}")`,
+      `shippingAddress(lastName="${sanitizedTerm}")`,
+      `shippingAddress(phone="${sanitizedTerm}")`,
+      `billingAddress(firstName="${sanitizedTerm}")`,
+      `billingAddress(lastName="${sanitizedTerm}")`,
+      `billingAddress(phone="${sanitizedTerm}")`,
+    ].join(' or ');
+  }
+
+  switch (labelKey) {
+    case LABEL_KEYS.CART_ID:
+      return `id="${sanitizedTerm}"`;
+    case LABEL_KEYS.CUSTOMER_EMAIL:
+      return `customerEmail="${sanitizedTerm}"`;
+    case LABEL_KEYS.SHIPPING_ADDRESS_NAME:
+      return `shippingAddress(firstName="${sanitizedTerm}") or shippingAddress(lastName="${sanitizedTerm}")`;
+    case LABEL_KEYS.SHIPPING_ADDRESS_PHONE:
+      return `shippingAddress(phone="${sanitizedTerm}")`;
+    case LABEL_KEYS.BILLING_ADDRESS_NAME:
+      return `billingAddress(firstName="${sanitizedTerm}") or billingAddress(lastName="${sanitizedTerm}")`;
+    case LABEL_KEYS.BILLING_ADDRESS_PHONE:
+      return `billingAddress(phone="${sanitizedTerm}")`;
+    default:
+      return null;
+  }
+}
+
 export const useCartsFetcher: TUseCartsFetcher = ({
   page,
   perPage,
@@ -48,13 +90,12 @@ export const useCartsFetcher: TUseCartsFetcher = ({
 }) => {
   // TODO: Sanitize email if desired via RegEx or util. By now we only need to asses that if a
   // '@' is present, the id "where" filter should not be used, to avoid errors on ALL_FIELDS search.
-  const isEmail: boolean = where?.includes('@') ?? false;
-  const searchQuery =
-    labelKey === LABEL_KEYS.ALL_FIELDS && !isEmail
-      ? `id="${where}" or customerEmail="${where}"`
-      : labelKey === LABEL_KEYS.CART_ID
-      ? `id="${where}"`
-      : `customerEmail="${where}"`;
+  const sanitizedWhere = (where ?? '').trim();
+
+  const whereFilter =
+    sanitizedWhere.length > 0 && labelKey
+      ? buildSearchQuery(labelKey, sanitizedWhere)
+      : null;
   const { data, error, loading } = useMcQuery<
     TFetchCartsQuery,
     TFetchCartsQueryVariables
@@ -63,12 +104,13 @@ export const useCartsFetcher: TUseCartsFetcher = ({
       limit: perPage.value,
       offset: (page.value - 1) * perPage.value,
       sort: [`${tableSorting.value.key} ${tableSorting.value.order}`],
-      where: where ? searchQuery : null,
+      where: whereFilter,
     },
     context: {
       target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
     },
   });
+
   return {
     cartsPaginatedResult: data?.carts?.results as TCart[],
     total: data?.carts?.total,
