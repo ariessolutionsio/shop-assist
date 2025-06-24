@@ -38,8 +38,8 @@ application's dependencies.
 ```bash
 yarn
 ```
-If this is the first time running the application locally, create an `env.json`
-file at the root directory using `env.template` as an example. Based on your
+If this is the first time running the application locally, create an `.env.local`
+file at the root directory using `.env.template` as an example. Based on your
 [region](https://docs.commercetools.com/api/general-concepts#regions), you may find it
 necessary to modify the values of `frontendHost`, `mcApiUrl`, and `location`.
 
