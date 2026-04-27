@@ -15,8 +15,43 @@ jobs:
         uses: dependabot/fetch-metadata@v2
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Enable auto-merge for patch and minor updates
-        if: steps.meta.outputs.update-type == 'version-update:semver-patch' || steps.meta.outputs.update-type == 'version-update:semver-minor'
+
+      - name: Check release age (manual cooldown)
+        id: cooldown
+        if: steps.meta.outputs.cve-ids != ''
+        run: |
+          set -euo pipefail
+          MIN_AGE_DAYS=7
+          # For grouped updates, dependency-names is comma-separated. Check the youngest.
+          IFS=',' read -ra PKGS <<< "${{ steps.meta.outputs.dependency-names }}"
+          version="${{ steps.meta.outputs.new-version }}"
+          youngest=99999
+          for raw in "${PKGS[@]}"; do
+            pkg=$(echo "$raw" | xargs)
+            published=$(curl -sf "https://registry.npmjs.org/${pkg}" | jq -r ".time[\"${version}\"] // empty")
+            if [ -z "$published" ]; then
+              echo "Could not look up publish date for ${pkg}@${version}; treating as too new."
+              youngest=0
+              break
+            fi
+            age=$(( ( $(date -u +%s) - $(date -u -d "$published" +%s) ) / 86400 ))
+            echo "${pkg}@${version} published ${age} days ago"
+            if [ "$age" -lt "$youngest" ]; then youngest=$age; fi
+          done
+          if [ "$youngest" -ge "$MIN_AGE_DAYS" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "Release younger than ${MIN_AGE_DAYS} days; leaving for manual review."
+          fi
+
+      - name: Enable auto-merge for security patches on direct deps
+        if: |
+          steps.meta.outputs.cve-ids != '' &&
+          steps.cooldown.outputs.ok == 'true' &&
+          (steps.meta.outputs.update-type == 'version-update:semver-patch' ||
+           steps.meta.outputs.update-type == 'version-update:semver-minor') &&
+          startsWith(steps.meta.outputs.dependency-type, 'direct:')
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
