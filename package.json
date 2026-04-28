@@ -160,7 +160,10 @@
     "webpack": "5.104.1",
     "webpack-dev-server": "5.2.1",
     "ws": "8.17.1",
-    "yaml": "1.10.3"
+    "yaml": "1.10.3",
+    "express/path-to-regexp": "^0.1.13",
+    "serve-handler": "6.1.7",
+    "uuid": "14.0.0"
   },
   "devDependencies": {
     "@commercetools-test-data/cart": "^8.1.1",
