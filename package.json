@@ -74,7 +74,7 @@
     "@commercetools-uikit/spacings": "^19.0.0",
     "@commercetools-uikit/text": "^19.0.0",
     "@commercetools-uikit/text-field": "^19.0.0",
-    "@commercetools-uikit/text-input": "^19.0.0",
+    "@commercetools-uikit/text-input": "^19.26.0",
     "@commercetools-uikit/tooltip": "^19.18.0",
     "@commercetools/sync-actions": "^5.14.0",
     "@emotion/react": "^11.11.4",
